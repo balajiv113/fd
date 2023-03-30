@@ -1,3 +1,6 @@
+//go:build !windows
+// +build !windows
+
 // Package fd provides a simple API to pass file descriptors
 // between different OS processes.
 //
@@ -6,16 +9,16 @@
 //
 // Example scenario:
 //
-//   1) Running server receives a "let's upgrade" message
-//   2) Server opens a Unix domain socket for the "upgrade"
-//   3) Server starts a new copy of itself and passes Unix domain socket name
-//   4) New copy starts reading for the socket
-//   5) Server sends its state over the socket, also sending the number
-//      of network connections to inherit, then it sends those connections
-//      using fd.Put()
-//   6) New copy reads the state and inherits connections using fd.Get(),
-//      checks that everything is OK and sends the "OK" message to the socket
-//   7) Server receives "OK" message and kills itself
+//  1. Running server receives a "let's upgrade" message
+//  2. Server opens a Unix domain socket for the "upgrade"
+//  3. Server starts a new copy of itself and passes Unix domain socket name
+//  4. New copy starts reading for the socket
+//  5. Server sends its state over the socket, also sending the number
+//     of network connections to inherit, then it sends those connections
+//     using fd.Put()
+//  6. New copy reads the state and inherits connections using fd.Get(),
+//     checks that everything is OK and sends the "OK" message to the socket
+//  7. Server receives "OK" message and kills itself
 package fd
 
 import (
